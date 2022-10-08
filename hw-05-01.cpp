@@ -22,7 +22,9 @@ int factorial(int number)
 
 int main() {
 
-    double a = -1, b = 1, step = 0.1;
+    double a = -1; //left border
+    double b = 1; //right border
+    double step = 0.1; 
     double x = a;
     double y = 0;
     double element = 0;
