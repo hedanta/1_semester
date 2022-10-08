@@ -7,7 +7,9 @@
 
 int main() {
 
-    double a = 0, b = 1, step = 0.05;
+    double a = 0; //left border
+    double b = 1; //right border
+    double step = 0.05;
     double x = a;
     double y = 0;
     double element = 0;
