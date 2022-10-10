@@ -40,7 +40,8 @@ int main() {
     std::string a_3 = to_ternary(a);
     std::string c_3 = to_ternary(c);
     std::string b = "";
-
+    
+    //make strings the same size
     if (a_3.size() < c_3.size()) {
         a_3.insert(a_3.begin(), c_3.size() - a_3.size(), '0');
     }
@@ -48,6 +49,7 @@ int main() {
         c_3.insert(c_3.begin(), a_3.size() - c_3.size(), '0');
     }
 
+    //count b by substracting from c_3-number a_3-number modulo 3
     for (int i = 0; i < a_3.size(); i += 1) {
         b += abs((c_3[i] - '0') - (a_3[i] - '0') + 3) % 3 + '0';
     }
