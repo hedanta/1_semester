@@ -14,7 +14,6 @@ int main() {
 
     std::cin >> a >> c;
 
-    int numsize = std::max(std::to_string(a).size(), std::to_string(c).size());
     int mupltiply = 1;
 
     //count b by substracting from c_3-number a_3-number modulo 3 
