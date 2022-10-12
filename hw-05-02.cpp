@@ -6,7 +6,6 @@
 #include <iomanip>
 
 int main() {
-
     double a = 0; //left border
     double b = 1; //right border
     double step = 0.05;
@@ -20,7 +19,6 @@ int main() {
     std::cout << "   x   " << "|" << " s(x)  " << "|" << " f(x)\n";
 
     for (a; a <= b; a += step) {
-
         //x belongs to [a, b]
         x = a;
         //sum variable
@@ -31,12 +29,12 @@ int main() {
         //sum of elements
         for (int i = 1; i < 1000; i += 1) {
             element = pow(x, i) * sin(i * pi/4);
+            
             if (std::abs(element) < eps) {
                 break;
             }
             s += element;
         }
-
         std::cout << std::setw(6) << std::fixed << std::setprecision(3) << x << " | " << s << " | " << y << '\n';
     }
     return 0;
