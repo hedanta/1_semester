@@ -7,7 +7,6 @@
 #include <string>
 
 int main() {
-
     int a = 0;
     int c = 0;
     int b = 0;
@@ -24,8 +23,6 @@ int main() {
         c /= 3;
         mupltiply *= 3;
     }
-
     std::cout << b;
-
     return 0;
 } 
