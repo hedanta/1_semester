@@ -21,7 +21,6 @@ int factorial(int number)
 }
 
 int main() {
-
     double a = -1; //left border
     double b = 1; //right border
     double step = 0.1; 
@@ -34,7 +33,6 @@ int main() {
     std::cout << "   x   " << "|" << " s(x)  " << "|" << " f(x)\n";
 
     for (a; a <= b; a += step) {
-
         //x belongs to [a, b]
         x = a;
         //sum variable
@@ -50,7 +48,6 @@ int main() {
             }
             s += element;
         }
-
         std::cout << std::setw(6) << std::fixed << std::setprecision(3) << x << " | " << s << " | " << y << '\n';
     }
     return 0;
