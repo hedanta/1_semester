@@ -2,10 +2,7 @@
 //BPM-22-2 Lebkova Marina
 
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-#include <cmath>
 
 int main() {
   int test_num = 0;
