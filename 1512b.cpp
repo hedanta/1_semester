@@ -30,6 +30,7 @@ int main() {
         char element = ' ';
 
         std::cin >> element;
+        // накапливаем текущую строку
         cur_row.push_back(element);
 
         if (element == '*') {
