@@ -23,7 +23,9 @@ int main() {
     bool first_cell = true; // клетка с '*' встретилась впервые
 
     for (int iRow = 0; iRow < table_size; iRow += 1) {
+      // по строкам посимвольно считаем таблицу
       std::vector<char> cur_row;
+      
       for (int iCol = 0; iCol < table_size; iCol += 1) {
         char element = ' ';
 
@@ -48,11 +50,12 @@ int main() {
       table.push_back(cur_row);
     }
 
-    // '*' в одной строке
     if (x1 == x2) {
+      // '*' в одной строке
       int ind_x = 0; // строка с двумя другими клетками
 
       if (x1 != 0 && x1 != table_size - 1) {
+        // общая строка не крайняя
         ind_x = x1 + 1;
       }
 
@@ -64,15 +67,17 @@ int main() {
       table[ind_x][y2] = '*';
     }
 
-    // '*' в одном столбце
     else if (y1 == y2) {
+      // '*' в одном столбце
       int ind_y = 0; // столбец с двумя другими клетками
 
       if (y1 != 0 && y1 != table_size - 1) {
+        // общий столбец не крайний
         ind_y = y1 + 1;
       }
 
       else {
+        // крайний столбец
         ind_y = table_size - 1 - y1;
       }
 
@@ -80,9 +85,8 @@ int main() {
       table[x2][ind_y] = '*';
     }
 
-    // '*' в двух разных углах
     else {
-      // клетки противоположны имеющимся
+      // в разных строках и столбцах
       table[x1][y2] = '*';
       table[x2][y1] = '*';
     }
