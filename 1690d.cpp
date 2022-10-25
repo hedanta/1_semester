@@ -3,7 +3,7 @@
 #include <string>
 
 int main() {
-	int test = 0;
+  int test = 0;
 	std::cin >> test;
 	for (int iTest = 0; iTest < test; iTest += 1) {
 		int n;
