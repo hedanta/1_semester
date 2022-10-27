@@ -37,18 +37,18 @@ int main() {
 	  else {
 	    ans = false;
           }
-	 }
-	  else if (str[i] == 'W') {
-	    if ((r && b) || (!r && !b)) {
-	      ans = true;
-	    }
-	    else {
-	      ans = false;
-            }
-	    b = false;
-	    r = false;
+	}
+        else if (str[i] == 'W') {
+	  if ((r && b) || (!r && !b)) {
+            ans = true;
 	  }
-        }
+	  else {
+	    ans = false;
+          }
+	  b = false;
+          r = false;
+	}
+      }
     }
     std::cout << (ans ? "yes" : "no") << '\n';
   }
