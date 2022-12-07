@@ -1,0 +1,1 @@
+﻿add_library(geom geometry.cpp geometry.h)

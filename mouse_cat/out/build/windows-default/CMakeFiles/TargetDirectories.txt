@@ -1,0 +1,6 @@
+C:/work/projects/lebkova_m_d/out/build/windows-default/CMakeFiles/lebkova_m_d.dir
+C:/work/projects/lebkova_m_d/out/build/windows-default/CMakeFiles/edit_cache.dir
+C:/work/projects/lebkova_m_d/out/build/windows-default/CMakeFiles/rebuild_cache.dir
+C:/work/projects/lebkova_m_d/out/build/windows-default/geom/CMakeFiles/rebuild_cache.dir
+C:/work/projects/lebkova_m_d/out/build/windows-default/geom/CMakeFiles/geom.dir
+C:/work/projects/lebkova_m_d/out/build/windows-default/geom/CMakeFiles/edit_cache.dir
