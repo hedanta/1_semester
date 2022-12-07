@@ -45,8 +45,8 @@ Rdec2D operator-(const Rdec2D& r) {
 
 Rdec2D operator-(const Rdec2D& lhs, const Rdec2D& rhs) {
   Rdec2D res = { 0.0, 0.0 };
-  res.x = rhs.x - lhs.x;
-  res.y = rhs.y - lhs.y;
+  res.x = lhs.x - rhs.x;
+  res.y = lhs.y - rhs.y;
   return res;
 }
 
@@ -128,8 +128,8 @@ Rpol2D operator-(const Rpol2D& lhs, const Rpol2D& rhs) {
   Rdec2D l = ToDec(lhs);
   Rdec2D r = ToDec(rhs);
   Rdec2D res = { 0.0, 0.0 };
-  res.x = r.x - l.x;
-  res.y = r.y - l.y;
+  res.x = l.x - r.x;
+  res.y = l.y - r.y;
   return ToPol(res);
 }
 
