@@ -25,7 +25,7 @@ int main() {
   double mod_v0_cat = 1.0;
   double mod_v0_mouse = 1.0;
   Rdec2D u_cat = (r_mouse - r_cat) / Norm(r_mouse - r_cat) * mod_v0_cat;
-  Rdec2D u_mouse = r_mouse / Norm(r_mouse) * mod_v0_mouse;
+  Rdec2D u_mouse = -r_mouse / Norm(r_mouse) * mod_v0_mouse;
 
   // предыдущее расстояние между героями событий
   double prev = Norm(r_mouse - r_cat);
@@ -42,11 +42,11 @@ int main() {
 
     // обновление скоростей 
     u_cat = (r_mouse - r_cat) / Norm(r_mouse - r_cat) * mod_v0_cat;
-    u_mouse = r_mouse / Norm(r_mouse) * mod_v0_mouse;
+    u_mouse = -r_mouse / Norm(r_mouse) * mod_v0_mouse;
 
     // обновление положений
     r_cat = r_cat + u_cat * dt;
-    r_mouse = r_mouse - u_mouse * dt;
+    r_mouse = r_mouse + u_mouse * dt;
 
     // мыш дырыш
     // мышка "выше" точки (0, 0) - убежала в норку
