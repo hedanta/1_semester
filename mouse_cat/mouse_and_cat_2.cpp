@@ -9,88 +9,85 @@
 const double EPS = std::numeric_limits<double>::epsilon();
 
 int main() {
-	// положение виновников задачи
-	Rdec2D r_mouse = { 0.0, -50.0 };
-	Rdec2D r_cat = { 10.0, 0.0 };
+  // положение виновников задачи
+  Rdec2D r_mouse = { 0.0, -3.0 };
+  Rdec2D r_cat = { 3.0, 0.0 };
 
-	// зона поржения
-	double kill_dist = 0.01;
+  // зона поржения
+  double kill_dist = 0.5;
 
-	// коэффициент для ускорения мышки
-	double k = 0.1;
+  // коэффициент для ускорения мышки
+  double k1 = 1.0;
+  double k2 = -0.5;
 
-	double dt = 0.05;
+  double dt = 0.05;
 
-	// начальные скорости
-	Rdec2D v0_mouse = { 0.0, 1.0 };
-	Rdec2D v0_cat = { 10.0, 10.0 };
-	Rdec2D u_mouse = v0_mouse;
-	Rdec2D u_cat = v0_cat;
+  // начальные скорости
+  double mod_v0_cat = 1.0;
+  double mod_v0_mouse = 0.0;
 
-	// ускорение мышки
-	// чем меньше расстояние, тем больше ускорение
-	Rdec2D a_dist = (r_cat - r_mouse) * k;
-	Rdec2D a_mouse = { 0.0, 0.0 };
-	a_mouse.x = 0.0;
-	a_mouse.y = 1 / Norm(a_dist);
+  // ускорение мышки
+  Rdec2D dist = (r_mouse - r_cat) / (Norm(r_mouse - r_cat) + k2) * k1;
+  Rdec2D a_mouse = { 0.0, Norm(dist) };
 
-	// предыдущее расстояние между героями событий
-	double prev = Norm(r_mouse - r_cat);
+  // скорости
+  Rdec2D u_cat = (r_mouse - r_cat) / Norm(r_mouse - r_cat) * mod_v0_cat;
+  // v_m = v_0 + at
+  Rdec2D u_mouse = -r_mouse / Norm(r_mouse) * mod_v0_mouse * dt + a_mouse * dt;
 
-	std::ofstream out("C://work//mouse_cat//result.txt");
+  // предыдущее расстояние между героями событий
+  double prev = Norm(r_mouse - r_cat);
 
-	int i = 1;
+  std::ofstream out("C://work//mouse_cat//result.txt");
 
-	// реализация
-	while (true) {
-		if (out.is_open()) {
-			out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " " 
-				  << r_mouse.x << " " << r_mouse.y << " " << Norm(u_mouse) << " " << Norm(r_mouse - r_cat) << " " << Norm(a_mouse) << '\n';
-		}
+  int i = 1;
 
-		// обновление положения кошки
-		r_cat = r_cat - u_cat * dt;
+  if (out.is_open()) {
+    out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " " << r_mouse.x << " " << r_mouse.y << " " << Norm(u_mouse)
+      << " " << Norm(a_mouse) << " " << Norm(r_mouse - r_cat) << '\n';
+  }
 
-		// обновление ускорения, скорости и положения мышки
-		a_dist = (r_cat - r_mouse) * k;
-		a_mouse.x = 0.0;
-		a_mouse.y = 1 / Norm(a_dist);
-		u_mouse = u_mouse + a_mouse * dt;
-		r_mouse = r_mouse + u_mouse;
+  // реализация
+  while (true) {
+    // обновление скоростей 
+    u_cat = (r_mouse - r_cat) / Norm(r_mouse - r_cat) * mod_v0_cat;
+    dist = (r_mouse - r_cat) / (Norm(r_mouse - r_cat) + k2) * k1;
+    a_mouse = { 0.0, Norm(dist) };
+    u_mouse = -r_mouse / Norm(r_mouse) * Norm(u_mouse) + a_mouse;
 
-		// мыш дырыш
-		// мышка "выше" точки (0, 0) - убежала в норку
-		if (r_mouse.y >= 0) {
-			i += 1;
-			out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " "
-				<< r_mouse.x << " " << 0.0 << " " << Norm(u_mouse) << " " << Norm(r_mouse - r_cat) << " " << Norm(a_mouse) << '\n';
-			std::cout << "mouse is in hole";
-			break;
-		}
+    // обновление положений
+    r_cat = r_cat + u_cat * dt;
+    r_mouse = r_mouse + u_mouse * dt;
 
-		// мыш кирдыш
-		// кошка поймала мышку
-		if (Norm(r_mouse - r_cat) <= kill_dist) {
-			i += 1;
-			out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " "
-				<< r_mouse.x << " " << r_mouse.y << " " << Norm(u_mouse) << " " << Norm(r_mouse - r_cat) << " " << Norm(a_mouse) << '\n';
-			std::cout << "rip mouse";
-			break;
-		}
+    if (out.is_open()) {
+      out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " " << r_mouse.x << " " << r_mouse.y << " " << Norm(u_mouse)
+        << " " << Norm(a_mouse) << " " << Norm(r_mouse - r_cat) << '\n';
+    }
 
-		// мыш победыш
-		// расстояние между кошкой и мышкой увеличивается 
-		// или кошка "перебежала" норку
-		if (r_cat.x < 0 || Norm(r_mouse - r_cat) > prev) {
-			i += 1;
-			out << std::fixed << std::setprecision(3) << i << " " << r_cat.x << " " << r_cat.y << " "
-				<< r_mouse.x << " " << r_mouse.y << " " << Norm(u_mouse) << " " << Norm(r_mouse - r_cat) << " " << Norm(a_mouse) << '\n';
-			std::cout << "mouse will be in hole";
-			break;
-		}
+    // мыш дырыш
+    // мышка "выше" точки (0, 0) - убежала в норку
+    if (r_mouse.y >= 0) {
+      std::cout << "mouse is in hole";
+      break;
+    }
 
-		prev = Norm(r_mouse - r_cat);
-		i += 1;
-	}
-	out.close();
+    // мыш кирдыш
+    // кошка поймала мышку
+    if (Norm(r_mouse - r_cat) <= kill_dist) {
+      std::cout << "rip mouse";
+      break;
+    }
+
+    // мыш победыш
+    // расстояние между кошкой и мышкой увеличивается 
+    // или кошка "перебежала" норку
+    if (r_cat.x < 0 || Norm(r_mouse - r_cat) > prev) {
+      std::cout << "mouse will be in hole";
+      break;
+    }
+
+    prev = Norm(r_mouse - r_cat);
+    i += 1;
+  }
+  out.close();
 }
